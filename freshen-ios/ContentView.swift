@@ -10,46 +10,6 @@ import FirebaseFirestore
 import FirebaseAuth
 
 
-
-class AppViewModel: ObservableObject {
-	
-	let auth = Auth.auth()
-	
-	@Published var signedIn = false
-	var isSignedIn: Bool {
-		return auth.currentUser != nil
-	}
-	
-	func signIn(email: String, password: String) {
-		auth.signIn(withEmail: email, password: password) {[weak self] result, error in
-			guard result != nil, error == nil else {
-				return
-			}
-			// successfully signed in user
-			DispatchQueue.main.async {
-				self?.signedIn = true
-			}
-		}
-	}
-	
-	func signUp(email: String, password: String) {
-		auth.createUser(withEmail: email, password: password) {[weak self] result, error in
-			guard result != nil, error == nil else {
-				return
-			}
-			// successfully created user && signed in after creation
-			DispatchQueue.main.async {
-				self?.signedIn = true
-			}
-		}
-	}
-	
-	func signOut() {
-		try? auth.signOut()
-		self.signedIn = false
-	}
-}
-
 struct ContentView: View {
 	@EnvironmentObject var viewModel: AppViewModel
 	var body: some View {
@@ -75,6 +35,7 @@ struct ContentView: View {
 		})
 	}
 }
+
 
 struct LoginView: View {
 	@State private var email = ""
@@ -194,3 +155,5 @@ struct ContentView_Previews: PreviewProvider {
 			.environmentObject(AppViewModel())
 	}
 }
+
+
