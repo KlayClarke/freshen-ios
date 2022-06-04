@@ -12,19 +12,11 @@ import FirebaseAuth
 
 struct ContentView: View {
 	@EnvironmentObject var viewModel: AppViewModel
+	let auth = Auth.auth()
 	var body: some View {
 		NavigationView {
 			if viewModel.signedIn {
-				VStack {
-					Text("You are signed in")
-					Button(action: {
-						viewModel.signOut()
-					}, label: {
-						Text("Sign Out")
-							.frame(width: 200, height: 50, alignment: .center)
-							.foregroundColor(Color.blue)
-					})
-				}
+				HomepageView()
 			} else {
 				LoginView()
 			}
@@ -148,6 +140,21 @@ struct JoinView: View {
 	}
 }
 
+struct HomepageView: View {
+	@EnvironmentObject var viewModel: AppViewModel
+	var body: some View {
+		VStack {
+			Text("Welcome back")
+			Button(action: {
+				viewModel.signOut()
+			}, label: {
+				Text("Sign Out")
+					.frame(width: 200, height: 50, alignment: .center)
+					.foregroundColor(Color.blue)
+			})
+		}
+	}
+}
 
 struct ContentView_Previews: PreviewProvider {
 	static var previews: some View {
