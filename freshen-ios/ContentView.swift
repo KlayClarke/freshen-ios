@@ -6,17 +6,71 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
+import FirebaseAuth
 
+
+
+class AppViewModel: ObservableObject {
+	
+	let auth = Auth.auth()
+	
+	@Published var signedIn = false
+	var isSignedIn: Bool {
+		return auth.currentUser != nil
+	}
+	
+	func signIn(email: String, password: String) {
+		auth.signIn(withEmail: email, password: password) {[weak self] result, error in
+			guard result != nil, error == nil else {
+				return
+			}
+			// successfully signed in user
+			DispatchQueue.main.async {
+				self?.signedIn = true
+			}
+		}
+	}
+	
+	func signUp(email: String, password: String) {
+		auth.createUser(withEmail: email, password: password) {[weak self] result, error in
+			guard result != nil, error == nil else {
+				return
+			}
+			// successfully created user && signed in after creation
+			DispatchQueue.main.async {
+				self?.signedIn = true
+			}
+		}
+		
+	}
+}
 
 struct ContentView: View {
-	@State private var username = ""
-	@State private var password = ""
-	@State private var wrongUsername = false
-	@State private var wrongPassword = false
-	@State private var showingLoginScreen = false
-	
+	@EnvironmentObject var viewModel: AppViewModel
     var body: some View {
 			NavigationView {
+				if viewModel.signedIn {
+					Text("You are signed in")
+				} else {
+					LoginView()
+				}
+			}
+			.navigationBarHidden(true)
+			.onAppear(perform: {
+				viewModel.signedIn = viewModel.isSignedIn
+			})
+		}
+}
+
+struct LoginView: View {
+	@State private var email = ""
+	@State private var password = ""
+	@State private var wrongEmail = false
+	@State private var wrongPassword = false
+	@State private var showingLoginScreen = false
+	@EnvironmentObject var viewModel: AppViewModel
+		var body: some View {
 				ZStack {
 					Color.blue.ignoresSafeArea()
 					Circle()
@@ -30,13 +84,13 @@ struct ContentView: View {
 							.font(.largeTitle)
 							.bold()
 							.padding()
-						TextField("Username", text: $username)
+						TextField("Email", text: $email)
 							.disableAutocorrection(true)
 							.padding()
 							.frame(width: 300, height: 50)
 							.background(Color.black.opacity(0.05))
 							.cornerRadius(10)
-							.border(.red, width: CGFloat(wrongUsername ? 2 : 0))
+							.border(.red, width: CGFloat(wrongEmail ? 2 : 0))
 						SecureField("Password", text: $password)
 							.padding()
 							.frame(width: 300, height: 50)
@@ -44,24 +98,22 @@ struct ContentView: View {
 							.cornerRadius(10)
 							.border(.red, width: CGFloat(wrongPassword ? 2 : 0))
 						Button("Login") {
-							authenticateUser(username: username, password: password)
+							guard !email.isEmpty, !password.isEmpty, !wrongEmail, !wrongPassword else {
+								return
+							}
+							viewModel.signIn(email: email, password: password)
 						}
 						.foregroundColor(.white)
 						.frame(width: 300, height: 50)
 						.background(Color.blue)
 						.cornerRadius(10)
-						NavigationLink(destination: Text("You are logged in @\(username)"),isActive: $showingLoginScreen) {
-							EmptyView()
-						}
+						NavigationLink("Don't have an account? Join", destination: JoinView())
 					}
 				}
-			}
-			.navigationBarHidden(true)
 		}
-	
 	func authenticateUser(username: String, password: String) {
-		if username.lowercased() == "kc123" {
-			wrongUsername = false
+		if email.lowercased() == "kccodetest@gmail.com" {
+			wrongEmail = false
 			if password.lowercased() == "password" {
 				wrongPassword = false
 				showingLoginScreen = true
@@ -69,14 +121,87 @@ struct ContentView: View {
 				wrongPassword = true
 			}
 		} else {
-			wrongUsername = true
+			wrongEmail = true
 		}
 	}
-	
 }
+
+
+struct JoinView: View {
+	@State private var email = ""
+	@State private var password = ""
+	@State private var passwordConfirm = ""
+	@State private var wrongEmail = false
+	@State private var wrongPassword = false
+	@State private var wrongPasswordConfirm = false
+	@State private var showingLoginScreen = false
+	@EnvironmentObject var viewModel: AppViewModel
+		var body: some View {
+				ZStack {
+					Color.blue.ignoresSafeArea()
+					Circle()
+						.scale(1.7)
+						.foregroundColor(.white.opacity(0.15))
+					Circle()
+						.scale(1.35)
+						.foregroundColor(.white)
+					VStack {
+						Text("Join")
+							.font(.largeTitle)
+							.bold()
+							.padding()
+						TextField("Email", text: $email)
+							.disableAutocorrection(true)
+							.padding()
+							.frame(width: 300, height: 50)
+							.background(Color.black.opacity(0.05))
+							.cornerRadius(10)
+							.border(.red, width: CGFloat(wrongEmail ? 2 : 0))
+						SecureField("Password", text: $password)
+							.padding()
+							.frame(width: 300, height: 50)
+							.background(Color.black.opacity(0.05))
+							.cornerRadius(10)
+							.border(.red, width: CGFloat(wrongPassword ? 2 : 0))
+						SecureField("Confirm Password", text: $passwordConfirm)
+							.padding()
+							.frame(width: 300, height: 50)
+							.background(Color.black.opacity(0.05))
+							.cornerRadius(10)
+							.border(.red, width: CGFloat(wrongPasswordConfirm ? 2 : 0))
+						Button("Create Account") {
+							guard !email.isEmpty, !password.isEmpty, !passwordConfirm.isEmpty, !wrongEmail, !wrongPassword, !wrongPasswordConfirm else {
+								return
+							}
+							viewModel.signUp(email: email, password: password)
+						}
+						.foregroundColor(.white)
+						.frame(width: 300, height: 50)
+						.background(Color.blue)
+						.cornerRadius(10)
+						NavigationLink("Already have an account? Login", destination: LoginView())
+					}
+				}
+		}
+	func authenticateUser(username: String, password: String) {
+		if email.lowercased() == "kccodetest@gmail.com" {
+			wrongEmail = false
+			if password.lowercased() == "password" {
+				wrongPassword = false
+				showingLoginScreen = true
+			} else {
+				wrongPassword = true
+			}
+		} else {
+			wrongEmail = true
+		}
+	}
+}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+				.environmentObject(AppViewModel())
     }
 }
