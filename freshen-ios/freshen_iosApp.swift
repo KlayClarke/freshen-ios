@@ -13,6 +13,7 @@ import FirebaseFirestore
 class AppViewModel: ObservableObject {
 	
 	let auth = Auth.auth()
+	let db = Firestore.firestore()
 	
 	@Published var signedIn = false
 	var isSignedIn: Bool {
@@ -31,22 +32,20 @@ class AppViewModel: ObservableObject {
 		}
 	}
 	
-	func signUp(email: String, password: String) {
+	func signUp(displayName: String, email: String, password: String) {
 		auth.createUser(withEmail: email, password: password) {[weak self] result, error in
 			guard result != nil, error == nil else {
 				return
 			}
 			// save user display name to db and link via uid or email
-			let db = Firestore.firestore()
 			var ref: DocumentReference? = nil
-			ref = db.collection("users").addDocument(data: [
-				"email": email,
-				"uid": result!.user.uid
-			]) {err in
+			self?.db.collection("users").document(result!.user.uid).setData([
+				"displayName": displayName
+			]) { err in
 				if let err = err {
-					print("Error adding document: \(err)")
+					print("Error writing document: \(err)")
 				} else {
-					print("Document added with ID: \(ref!.documentID)")
+					print("Document successfully written")
 				}
 			}
 			

@@ -62,10 +62,38 @@ struct JoinView: View {
 					.cornerRadius(10)
 					.border(.red, width: CGFloat(wrongPasswordConfirm ? 2 : 0))
 				Button("Create Account") {
-					guard !email.isEmpty, !password.isEmpty, !passwordConfirm.isEmpty, !wrongEmail, !wrongPassword, !wrongPasswordConfirm else {
+					// error handling
+					if displayName.isEmpty {
+						wrongDisplayName = true
+					} else if !displayName.isEmpty {
+						wrongDisplayName = false
+					}
+					if email.isEmpty {
+						wrongEmail = true
+					} else if !email.isEmpty {
+						wrongEmail = false
+					}
+					if password.isEmpty {
+						wrongPassword = true
+					} else if !password.isEmpty {
+						wrongPassword = false
+					}
+					if passwordConfirm.isEmpty {
+						wrongPasswordConfirm = true
+					} else if !passwordConfirm.isEmpty {
+						wrongPasswordConfirm = false
+					}
+					if password != passwordConfirm {
+						wrongPasswordConfirm = true
+					} else if password == passwordConfirm {
+						wrongPasswordConfirm = false
+					}
+					
+					// to make sure that request doesn't go through if these requirements are not met
+					guard !displayName.isEmpty, !email.isEmpty, !password.isEmpty, !passwordConfirm.isEmpty, !wrongEmail, !wrongPassword, !wrongPasswordConfirm else {
 						return
 					}
-					viewModel.signUp(email: email, password: password)
+					viewModel.signUp(displayName: displayName , email: email, password: password)
 				}
 				.foregroundColor(.white)
 				.frame(width: 300, height: 50)
@@ -78,7 +106,7 @@ struct JoinView: View {
 }
 
 struct JoinView_Previews: PreviewProvider {
-    static var previews: some View {
-        JoinView()
-    }
+	static var previews: some View {
+		JoinView()
+	}
 }
