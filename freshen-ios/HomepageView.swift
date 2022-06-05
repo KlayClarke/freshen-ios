@@ -8,20 +8,12 @@
 import SwiftUI
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseFirestore
+import MapKit
+import CoreLocation
 
 struct HomepageView: View {
 	@EnvironmentObject var viewModel: AppViewModel
-	func getData() {
-		viewModel.db.collection("users").getDocuments { querySnapshot, err in
-			if let err = err {
-				print("Error getting documents: \(err)")
-			} else {
-				for document in querySnapshot!.documents {
-					print("\(document.documentID) => \(document.data())")
-				}
-			}
-		}
-	}
 	var body: some View {
 		VStack {
 			Text("Welcome back")
@@ -32,6 +24,10 @@ struct HomepageView: View {
 					.frame(width: 200, height: 50, alignment: .center)
 					.foregroundColor(Color.blue)
 			})
+			GeometryReader {proxy in
+				MapView()
+					.frame(width: proxy.size.width, height: proxy.size.height, alignment: .center)
+			}
 		}
 	}
 }

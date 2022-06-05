@@ -20,6 +20,7 @@
 		53EC29A3284CCBD7007010F9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EC299E284CCBD7007010F9 /* LoginView.swift */; };
 		53EC29A5284CCC88007010F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 53EC29A4284CCC88007010F9 /* GoogleService-Info.plist */; };
 		53EC29A8284CD798007010F9 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 53EC29A7284CD798007010F9 /* FirebaseDatabase */; };
+		53EC29AE284D0632007010F9 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EC29AD284D0632007010F9 /* MapView.swift */; };
 		53FD3D57284AFCB8009AA4C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53FD3D56284AFCB8009AA4C4 /* Assets.xcassets */; };
 		53FD3D5A284AFCB8009AA4C4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53FD3D59284AFCB8009AA4C4 /* Preview Assets.xcassets */; };
 		53FD3D64284AFCB9009AA4C4 /* freshen_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FD3D63284AFCB9009AA4C4 /* freshen_iosTests.swift */; };
@@ -52,6 +53,7 @@
 		53EC299D284CCBD7007010F9 /* HomepageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomepageView.swift; sourceTree = "<group>"; };
 		53EC299E284CCBD7007010F9 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		53EC29A4284CCC88007010F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		53EC29AD284D0632007010F9 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		53FD3D4F284AFCB6009AA4C4 /* freshen-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "freshen-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		53FD3D56284AFCB8009AA4C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		53FD3D59284AFCB8009AA4C4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				53EC299A284CCBD7007010F9 /* ContentView.swift */,
 				53EC299B284CCBD7007010F9 /* freshen_iosApp.swift */,
 				53EC299D284CCBD7007010F9 /* HomepageView.swift */,
+				53EC29AD284D0632007010F9 /* MapView.swift */,
 				53EC299C284CCBD7007010F9 /* JoinView.swift */,
 				53EC299E284CCBD7007010F9 /* LoginView.swift */,
 				53FD3D56284AFCB8009AA4C4 /* Assets.xcassets */,
@@ -302,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53EC299F284CCBD7007010F9 /* ContentView.swift in Sources */,
+				53EC29AE284D0632007010F9 /* MapView.swift in Sources */,
 				53EC29A1284CCBD7007010F9 /* JoinView.swift in Sources */,
 				53EC29A2284CCBD7007010F9 /* HomepageView.swift in Sources */,
 				53EC29A3284CCBD7007010F9 /* LoginView.swift in Sources */,

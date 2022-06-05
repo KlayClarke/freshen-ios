@@ -38,7 +38,6 @@ class AppViewModel: ObservableObject {
 				return
 			}
 			// save user display name to db and link via uid or email
-			var ref: DocumentReference? = nil
 			self?.db.collection("users").document(result!.user.uid).setData([
 				"displayName": displayName
 			]) { err in
@@ -62,13 +61,13 @@ class AppViewModel: ObservableObject {
 	}
 }
 
-
 class AppDelegate: NSObject, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
 		FirebaseApp.configure()
 		return true
 	}
 }
+
 
 @main
 struct freshen_iosApp: App {
