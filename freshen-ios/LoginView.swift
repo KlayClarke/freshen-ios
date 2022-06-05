@@ -25,6 +25,7 @@ struct LoginView: View {
 				.foregroundColor(.white)
 			VStack {
 				Text("Login")
+					.foregroundColor(.blue)
 					.font(.largeTitle)
 					.bold()
 					.padding()

@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct JoinView: View {
+	@State private var displayName = ""
 	@State private var email = ""
 	@State private var password = ""
 	@State private var passwordConfirm = ""
+	@State private var wrongDisplayName = false
 	@State private var wrongEmail = false
 	@State private var wrongPassword = false
 	@State private var wrongPasswordConfirm = false
@@ -27,17 +29,18 @@ struct JoinView: View {
 				.foregroundColor(.white)
 			VStack {
 				Text("Join")
+					.foregroundColor(.blue)
 					.font(.largeTitle)
 					.bold()
 					.padding()
-				TextField("Display Name", text: $email)
+				TextField("Display Name", text: $displayName)
 					.textInputAutocapitalization(.never)
 					.disableAutocorrection(true)
 					.padding()
 					.frame(width: 300, height: 50)
 					.background(Color.black.opacity(0.05))
 					.cornerRadius(10)
-					.border(.red, width: CGFloat(wrongEmail ? 2 : 0))
+					.border(.red, width: CGFloat(wrongDisplayName ? 2 : 0))
 				TextField("Email", text: $email)
 					.textInputAutocapitalization(.never)
 					.disableAutocorrection(true)

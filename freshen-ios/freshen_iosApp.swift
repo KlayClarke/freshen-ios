@@ -8,6 +8,7 @@
 import SwiftUI
 import FirebaseCore
 import FirebaseAuth
+import FirebaseFirestore
 
 class AppViewModel: ObservableObject {
 	
@@ -35,6 +36,20 @@ class AppViewModel: ObservableObject {
 			guard result != nil, error == nil else {
 				return
 			}
+			// save user display name to db and link via uid or email
+			let db = Firestore.firestore()
+			var ref: DocumentReference? = nil
+			ref = db.collection("users").addDocument(data: [
+				"email": email,
+				"uid": result!.user.uid
+			]) {err in
+				if let err = err {
+					print("Error adding document: \(err)")
+				} else {
+					print("Document added with ID: \(ref!.documentID)")
+				}
+			}
+			
 			// successfully created user && signed in after creation
 			DispatchQueue.main.async {
 				self?.signedIn = true

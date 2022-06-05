@@ -3,3 +3,5 @@ Info.plist
 freshen-ios.xcodeproj
 freshen-iosTests
 freshen-iosUITests
+project.pbxproj
+UserInterfaceState.xcuserstate
