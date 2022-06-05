@@ -10,10 +10,9 @@ import FirebaseAuth
 
 struct HomepageView: View {
 	@EnvironmentObject var viewModel: AppViewModel
-	@State var user = Auth.auth().currentUser
 	var body: some View {
 		VStack {
-			Text("Welcome back \(user?.displayName != nil ? user?.displayName : user?.email?.split(separator: "@")[0])" as String)
+			Text("Welcome back")
 			Button(action: {
 				viewModel.signOut()
 			}, label: {
