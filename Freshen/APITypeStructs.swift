@@ -9,6 +9,22 @@ import Foundation
 
 typealias Salons = [SalonElement]
 
+struct ApiReturnElement: Codable {
+    let type: String
+    let crs: CRSElement
+    let features: FeatureElement
+}
+
+struct CRSElement: Codable {
+    let type: String
+    let properties: CRSPropertiesElement
+    
+}
+
+struct CRSPropertiesElement: Codable {
+    let name: String
+}
+
 struct FeatureElement: Codable {
     let features: Salons
 }
