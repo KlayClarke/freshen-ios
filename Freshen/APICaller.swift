@@ -11,6 +11,8 @@ final class APICaller {
     static let instance = APICaller()
     private init() {}
     
+    // Salons
+    
     func fetchSalons() async throws -> FeatureElement {
         let url = URL(string: "https://freshenv3.vercel.app/api/salons/get".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")
         let request = URLRequest(url: url!)

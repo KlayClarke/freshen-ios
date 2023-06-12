@@ -14,6 +14,8 @@
 		53DAF4292A36822000DC797D /* APITypeStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DAF4282A36822000DC797D /* APITypeStructs.swift */; };
 		53DAF42B2A36849900DC797D /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DAF42A2A36849900DC797D /* APICaller.swift */; };
 		53DAF42D2A36870800DC797D /* APIErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DAF42C2A36870800DC797D /* APIErrorHandling.swift */; };
+		53DAF4312A36ACA400DC797D /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 53DAF4302A36ACA400DC797D /* MapboxMaps */; };
+		53DAF4332A36AE7600DC797D /* MapboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DAF4322A36AE7600DC797D /* MapboxView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		53DAF4282A36822000DC797D /* APITypeStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITypeStructs.swift; sourceTree = "<group>"; };
 		53DAF42A2A36849900DC797D /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		53DAF42C2A36870800DC797D /* APIErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIErrorHandling.swift; sourceTree = "<group>"; };
+		53DAF42E2A36A50800DC797D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		53DAF4322A36AE7600DC797D /* MapboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapboxView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53DAF4312A36ACA400DC797D /* MapboxMaps in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,6 +62,7 @@
 		53DAF40A2A3658CE00DC797D /* Freshen */ = {
 			isa = PBXGroup;
 			children = (
+				53DAF42E2A36A50800DC797D /* Info.plist */,
 				53DAF40B2A3658CE00DC797D /* FreshenApp.swift */,
 				53DAF40D2A3658CE00DC797D /* ContentView.swift */,
 				53DAF40F2A3658D000DC797D /* Assets.xcassets */,
@@ -64,6 +70,7 @@
 				53DAF4282A36822000DC797D /* APITypeStructs.swift */,
 				53DAF42A2A36849900DC797D /* APICaller.swift */,
 				53DAF42C2A36870800DC797D /* APIErrorHandling.swift */,
+				53DAF4322A36AE7600DC797D /* MapboxView.swift */,
 			);
 			path = Freshen;
 			sourceTree = "<group>";
@@ -92,6 +99,9 @@
 			dependencies = (
 			);
 			name = Freshen;
+			packageProductDependencies = (
+				53DAF4302A36ACA400DC797D /* MapboxMaps */,
+			);
 			productName = Freshen;
 			productReference = 53DAF4082A3658CE00DC797D /* Freshen.app */;
 			productType = "com.apple.product-type.application";
@@ -120,6 +130,9 @@
 				Base,
 			);
 			mainGroup = 53DAF3FF2A3658CE00DC797D;
+			packageReferences = (
+				53DAF42F2A36ACA400DC797D /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */,
+			);
 			productRefGroup = 53DAF4092A3658CE00DC797D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -147,6 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53DAF42D2A36870800DC797D /* APIErrorHandling.swift in Sources */,
+				53DAF4332A36AE7600DC797D /* MapboxView.swift in Sources */,
 				53DAF4292A36822000DC797D /* APITypeStructs.swift in Sources */,
 				53DAF40E2A3658CE00DC797D /* ContentView.swift in Sources */,
 				53DAF40C2A3658CE00DC797D /* FreshenApp.swift in Sources */,
@@ -209,7 +223,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -266,7 +280,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -287,6 +301,7 @@
 				DEVELOPMENT_TEAM = 9MXUY7WVYM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Freshen/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -316,6 +331,7 @@
 				DEVELOPMENT_TEAM = 9MXUY7WVYM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Freshen/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -356,6 +372,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		53DAF42F2A36ACA400DC797D /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mapbox/mapbox-maps-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		53DAF4302A36ACA400DC797D /* MapboxMaps */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53DAF42F2A36ACA400DC797D /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */;
+			productName = MapboxMaps;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 53DAF4002A3658CE00DC797D /* Project object */;
 }

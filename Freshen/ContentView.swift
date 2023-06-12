@@ -13,13 +13,9 @@ struct ContentView: View {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("Hello, world")
             let _ = APICaller.instance.retrieveSalons()
         }
         .padding()
     }
-}
-
-#Preview {
-    ContentView()
 }
