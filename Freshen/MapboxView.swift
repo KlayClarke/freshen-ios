@@ -14,8 +14,21 @@ let MBX_PUBLIC_TOKEN: String? = ProcessInfo.processInfo.environment["MBX_PUBLIC_
 public class ViewController: UIViewController {
     internal var mapView: MapView!
     
+    // add back button
+    @IBAction func goBackButton(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
+        
+        // add backbutton
+        let backbutton = UIButton(type: .custom)
+        backbutton.setTitle("Back", for: .normal)
+        backbutton.setTitleColor(backbutton.tintColor, for: .normal)
+        backbutton.addTarget(self, action: "backAction", for: .touchUpInside)
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backbutton)
         
         // initialize map view centered over US
         let center = CLLocationCoordinate2D(latitude: 40.669957, longitude: -103.5917968)
@@ -31,10 +44,14 @@ public class ViewController: UIViewController {
         }
     }
     
+    func backAction() -> Void {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     func addPointClusters() {
         let style = self.mapView.mapboxMap.style
         // Parse GeoJSON data.
-        guard let url = URL(string: "http://localhost:3001/api/salons/get") else { return }
+        guard let url = URL(string: "http://freshenv3.vercel.app/api/salons/get") else { return }
         
         // Create a GeoJSONSource from data URL
         var source = GeoJSONSource()
@@ -104,7 +121,7 @@ public class ViewController: UIViewController {
         }
         
         unclusteredLayer.circleColor = .constant(StyleColor(UIColor(red: 0.07, green: 0.71, blue: 0.85, alpha: 1.00)))
-        unclusteredLayer.circleRadius = .constant(4)
+        unclusteredLayer.circleRadius = .constant(8)
         unclusteredLayer.circleStrokeWidth = .constant(1)
         unclusteredLayer.circleStrokeColor = .constant(StyleColor(.black))
         return unclusteredLayer
@@ -152,3 +169,13 @@ struct MapboxView: View {
         }
     }
 }
+
+struct MapboxView_Previews: PreviewProvider {
+    static var previews: some View {
+        MapboxView()
+    }
+}
+
+
+// TODO:
+// - repurpose click for opening banner above salon / restaurant

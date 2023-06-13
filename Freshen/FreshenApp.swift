@@ -11,7 +11,7 @@ import SwiftUI
 struct FreshenApp: App {
     var body: some Scene {
         WindowGroup {
-            MapboxView()
+            ExploreView()
         }
     }
 }

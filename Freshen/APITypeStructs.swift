@@ -7,12 +7,10 @@
 
 import Foundation
 
-typealias Salons = [SalonElement]
-
 struct ApiReturnElement: Codable {
     let type: String
     let crs: CRSElement
-    let features: FeatureElement
+    let features: [SalonElement]
 }
 
 struct CRSElement: Codable {
@@ -23,10 +21,6 @@ struct CRSElement: Codable {
 
 struct CRSPropertiesElement: Codable {
     let name: String
-}
-
-struct FeatureElement: Codable {
-    let features: Salons
 }
 
 struct SalonElement: Codable, Hashable {
