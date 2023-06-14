@@ -10,7 +10,7 @@ import SwiftUI
 class ExploreViewModel: ObservableObject {
     @Published var salons: [SalonElement] = []
     
-    func fetchSalons() {
+    func fetchSalons(sortedBy: Sorter) {
         guard let url = URL(string: "https://freshenv3.vercel.app/api/salons/get".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") else {
             return
         }
@@ -23,7 +23,21 @@ class ExploreViewModel: ObservableObject {
             // Convert to JSON
             do {
                 let apiReturnElement = try JSONDecoder().decode(ApiReturnElement.self, from: data) as ApiReturnElement
-                let salons = apiReturnElement.features as [SalonElement]
+                var salons = apiReturnElement.features as [SalonElement]
+                
+                // Sort api response based on input sortedBy
+                if sortedBy == Sorter.alphabetically {
+                    // sort by alpha
+                    salons.sort(by: { $0.name < $1.name })
+                } else if sortedBy == Sorter.type {
+                    // sort by type
+                    salons.sort(by: { $0.salon_type < $1.salon_type })
+                } else {
+                    // sort by price
+                    salons.sort(by: { $0.average_price < $1.average_price })
+                }
+                
+                
                 DispatchQueue.main.async {
                     self?.salons = salons
                 }
@@ -80,12 +94,9 @@ struct ExploreView: View {
     var body: some View {
         NavigationStack {
             List(exploreViewModel.salons, id: \.self) { salon in
-                NavigationLink(destination: EmptyView()) {
+                NavigationLink(destination: DetailView(salon: salon)) {
                     HStack {
-                        ZStack {
-                            URLImage(urlString: salon.image)
-                        }
-                        .frame(width: 130, height: 70)
+                        URLImage(urlString: salon.image)
                         Text(salon.name)
                             .bold()
                     }
@@ -94,7 +105,7 @@ struct ExploreView: View {
             }
             .navigationTitle("Explore")
             .onAppear {
-                exploreViewModel.fetchSalons()
+                exploreViewModel.fetchSalons(sortedBy: Sorter.alphabetically)
             }
         }
     }

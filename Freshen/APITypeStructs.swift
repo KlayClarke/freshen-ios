@@ -36,6 +36,7 @@ struct SalonElement: Codable, Hashable {
     let id: String
     let name: String
     let type: String
+    let salon_type: String
     let average_price: Int
     let image: String
     let street_address: String
@@ -58,4 +59,11 @@ enum Type: String, Codable {
     case barbershop = "Barbershop"
     case hybrid = "Hybrid"
     case salon = "Salon"
+}
+
+// For sorting salons
+enum Sorter: String, Codable {
+    case alphabetically = "Alphabetically"
+    case type = "Type"
+    case price = "Price"
 }

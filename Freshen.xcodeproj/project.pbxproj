@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		531E09E52A38AFC5009AC866 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531E09E42A38AFC5009AC866 /* ExploreView.swift */; };
+		531E09E72A396DE4009AC866 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531E09E62A396DE4009AC866 /* DetailView.swift */; };
 		53DAF40C2A3658CE00DC797D /* FreshenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DAF40B2A3658CE00DC797D /* FreshenApp.swift */; };
 		53DAF4102A3658D000DC797D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53DAF40F2A3658D000DC797D /* Assets.xcassets */; };
 		53DAF4132A3658D000DC797D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53DAF4122A3658D000DC797D /* Preview Assets.xcassets */; };
 		53DAF4292A36822000DC797D /* APITypeStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DAF4282A36822000DC797D /* APITypeStructs.swift */; };
-		53DAF42B2A36849900DC797D /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DAF42A2A36849900DC797D /* APICaller.swift */; };
 		53DAF42D2A36870800DC797D /* APIErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DAF42C2A36870800DC797D /* APIErrorHandling.swift */; };
 		53DAF4312A36ACA400DC797D /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 53DAF4302A36ACA400DC797D /* MapboxMaps */; };
 		53DAF4332A36AE7600DC797D /* MapboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DAF4322A36AE7600DC797D /* MapboxView.swift */; };
@@ -20,12 +20,12 @@
 
 /* Begin PBXFileReference section */
 		531E09E42A38AFC5009AC866 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
+		531E09E62A396DE4009AC866 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		53DAF4082A3658CE00DC797D /* Freshen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Freshen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53DAF40B2A3658CE00DC797D /* FreshenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreshenApp.swift; sourceTree = "<group>"; };
 		53DAF40F2A3658D000DC797D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		53DAF4122A3658D000DC797D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		53DAF4282A36822000DC797D /* APITypeStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITypeStructs.swift; sourceTree = "<group>"; };
-		53DAF42A2A36849900DC797D /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		53DAF42C2A36870800DC797D /* APIErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIErrorHandling.swift; sourceTree = "<group>"; };
 		53DAF42E2A36A50800DC797D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		53DAF4322A36AE7600DC797D /* MapboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapboxView.swift; sourceTree = "<group>"; };
@@ -66,10 +66,10 @@
 				53DAF40B2A3658CE00DC797D /* FreshenApp.swift */,
 				53DAF4322A36AE7600DC797D /* MapboxView.swift */,
 				531E09E42A38AFC5009AC866 /* ExploreView.swift */,
+				531E09E62A396DE4009AC866 /* DetailView.swift */,
 				53DAF40F2A3658D000DC797D /* Assets.xcassets */,
 				53DAF4112A3658D000DC797D /* Preview Content */,
 				53DAF4282A36822000DC797D /* APITypeStructs.swift */,
-				53DAF42A2A36849900DC797D /* APICaller.swift */,
 				53DAF42C2A36870800DC797D /* APIErrorHandling.swift */,
 			);
 			path = Freshen;
@@ -162,9 +162,9 @@
 				53DAF42D2A36870800DC797D /* APIErrorHandling.swift in Sources */,
 				53DAF4332A36AE7600DC797D /* MapboxView.swift in Sources */,
 				53DAF4292A36822000DC797D /* APITypeStructs.swift in Sources */,
+				531E09E72A396DE4009AC866 /* DetailView.swift in Sources */,
 				53DAF40C2A3658CE00DC797D /* FreshenApp.swift in Sources */,
 				531E09E52A38AFC5009AC866 /* ExploreView.swift in Sources */,
-				53DAF42B2A36849900DC797D /* APICaller.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

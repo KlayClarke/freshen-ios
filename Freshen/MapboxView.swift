@@ -11,7 +11,7 @@ import MapboxMaps
 
 let MBX_PUBLIC_TOKEN: String? = ProcessInfo.processInfo.environment["MBX_PUBLIC_TOKEN"]
 
-public class ViewController: UIViewController {
+public class MapboxViewController: UIViewController {
     internal var mapView: MapView!
     
     // add back button
@@ -145,14 +145,14 @@ public class ViewController: UIViewController {
 }
 
 struct MyView: UIViewControllerRepresentable {
-    typealias UIViewControllerType = ViewController
+    typealias UIViewControllerType = MapboxViewController
     
-    func makeUIViewController(context: Context) -> ViewController {
-        let vc = ViewController()
+    func makeUIViewController(context: Context) -> MapboxViewController {
+        let vc = MapboxViewController()
         return vc
     }
     
-    func updateUIViewController(_ uiViewController: ViewController, context: Context) {
+    func updateUIViewController(_ uiViewController: MapboxViewController, context: Context) {
         
     }
 }
