@@ -37,19 +37,60 @@ class ExploreViewModel: ObservableObject {
     }
 }
 
+struct URLImage: View {
+    let urlString: String
+    
+    @State var data: Data?
+    
+    var body: some View {
+        if let data = data, let uiimage = UIImage(data: data) {
+            // create border to wrap around fetched image
+            Image(uiImage: uiimage)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 130, height: 70)
+                .background(Color.gray)
+        } else {
+            Image("")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 130, height: 70)
+                .background(Color.gray)
+                .onAppear {
+                    fetchData()
+                }
+        }
+    }
+    
+    private func fetchData() {
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, _, _ in
+            self.data = data
+        }
+        
+        task.resume()
+    }
+}
+
 struct ExploreView: View {
     @StateObject var exploreViewModel = ExploreViewModel()
     var body: some View {
         NavigationStack {
             List(exploreViewModel.salons, id: \.self) { salon in
-                HStack {
-                    AsyncImage(url: URL(string: salon.image))
+                NavigationLink(destination: EmptyView()) {
+                    HStack {
+                        ZStack {
+                            URLImage(urlString: salon.image)
+                        }
                         .frame(width: 130, height: 70)
-                        .background(Color.gray)
-                    Text(salon.name)
-                        .bold()
+                        Text(salon.name)
+                            .bold()
+                    }
+                    .padding(3)
                 }
-                .padding(3)
             }
             .navigationTitle("Explore")
             .onAppear {
