@@ -97,8 +97,10 @@ struct ExploreView: View {
                 NavigationLink(destination: DetailView(salon: salon)) {
                     HStack {
                         URLImage(urlString: salon.image)
-                        Text(salon.name)
-                            .bold()
+                        VStack {
+                            Text(salon.name)
+                                .bold()
+                        }
                     }
                     .padding(3)
                 }

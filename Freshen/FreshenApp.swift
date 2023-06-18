@@ -11,7 +11,9 @@ import SwiftUI
 struct FreshenApp: App {
     var body: some Scene {
         WindowGroup {
-            ExploreView()
+            NavigationView()
         }
     }
 }
+
+// Create Navbar on bottom of screen that has Home w/ Map, Explore, Account info and Logout

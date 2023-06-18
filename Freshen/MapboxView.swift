@@ -14,21 +14,8 @@ let MBX_PUBLIC_TOKEN: String? = ProcessInfo.processInfo.environment["MBX_PUBLIC_
 public class MapboxViewController: UIViewController {
     internal var mapView: MapView!
     
-    // add back button
-    @IBAction func goBackButton(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
-        // add backbutton
-        let backbutton = UIButton(type: .custom)
-        backbutton.setTitle("Back", for: .normal)
-        backbutton.setTitleColor(backbutton.tintColor, for: .normal)
-        backbutton.addTarget(self, action: "backAction", for: .touchUpInside)
-        
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backbutton)
         
         // initialize map view centered over US
         let center = CLLocationCoordinate2D(latitude: 40.669957, longitude: -103.5917968)
@@ -42,10 +29,6 @@ public class MapboxViewController: UIViewController {
         mapView.mapboxMap.onNext(event: .styleLoaded) { _ in
             self.addPointClusters()
         }
-    }
-    
-    func backAction() -> Void {
-        self.navigationController?.popViewController(animated: true)
     }
     
     func addPointClusters() {
@@ -124,6 +107,10 @@ public class MapboxViewController: UIViewController {
         unclusteredLayer.circleRadius = .constant(8)
         unclusteredLayer.circleStrokeWidth = .constant(1)
         unclusteredLayer.circleStrokeColor = .constant(StyleColor(.black))
+        
+        // TODO: add tap gesture to unclustered point (allow user to redirect self to salon's detail page)
+        
+        
         return unclusteredLayer
     }
     
@@ -142,6 +129,7 @@ public class MapboxViewController: UIViewController {
     override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
+    
 }
 
 struct MyView: UIViewControllerRepresentable {
@@ -160,13 +148,8 @@ struct MyView: UIViewControllerRepresentable {
 struct MapboxView: View {
     @State var isPresented = false
     var body: some View {
-        Button("Open Map") {
-            isPresented = true
-        }
-        .sheet(isPresented: $isPresented) {
-            MyView()
-                .ignoresSafeArea()
-        }
+        MyView()
+            .ignoresSafeArea(.container, edges: [.top])
     }
 }
 
