@@ -11,6 +11,7 @@ struct DetailView: View {
     let salon: SalonElement?
     
     var body: some View {
+        URLImage(urlString: salon!.image)
         Text(salon!.name)
         Text(salon!.salon_type)
     }

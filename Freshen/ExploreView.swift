@@ -61,15 +61,9 @@ struct URLImage: View {
             // create border to wrap around fetched image
             Image(uiImage: uiimage)
                 .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 130, height: 70)
-                .background(Color.gray)
         } else {
             Image("")
                 .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 130, height: 70)
-                .background(Color.gray)
                 .onAppear {
                     fetchData()
                 }
@@ -91,14 +85,25 @@ struct URLImage: View {
 
 struct ExploreView: View {
     @StateObject var exploreViewModel = ExploreViewModel()
+    @State var sortBy: Sorter = Sorter.alphabetically
+    @State var isShowingSortBySheet: Bool = false
     var body: some View {
         NavigationStack {
+            Picker("Sort by", selection: $sortBy) {
+                Text("Sort By Name").tag(Sorter.alphabetically)
+                Text("Sort By Type").tag(Sorter.type)
+                Text("Sort By Price").tag(Sorter.price)
+            }
+            .pickerStyle(.segmented)
             List(exploreViewModel.salons, id: \.self) { salon in
                 NavigationLink(destination: DetailView(salon: salon)) {
                     HStack {
                         URLImage(urlString: salon.image)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 130, height: 70)
+                            .background(Color.gray)
                         VStack {
-                            Text(salon.name)
+                            Text("\(salon.name) - $\(salon.average_price)")
                                 .bold()
                         }
                     }
@@ -107,7 +112,10 @@ struct ExploreView: View {
             }
             .navigationTitle("Explore")
             .onAppear {
-                exploreViewModel.fetchSalons(sortedBy: Sorter.alphabetically)
+                exploreViewModel.fetchSalons(sortedBy: sortBy)
+            }
+            .onChange(of: sortBy) { _ in
+                exploreViewModel.fetchSalons(sortedBy: sortBy)
             }
         }
     }
