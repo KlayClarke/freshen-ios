@@ -23,7 +23,7 @@ struct CRSPropertiesElement: Codable {
     let name: String
 }
 
-struct SalonElement: Codable, Hashable {
+struct SalonElement: Identifiable, Codable, Hashable {
     static func == (lhs: SalonElement, rhs: SalonElement) -> Bool {
         return lhs.id == rhs.id
     }

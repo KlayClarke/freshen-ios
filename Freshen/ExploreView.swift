@@ -7,50 +7,6 @@
 
 import SwiftUI
 
-class ExploreViewModel: ObservableObject {
-    @Published var salons: [SalonElement] = []
-    
-    func fetchSalons(sortedBy: Sorter) {
-        guard let url = URL(string: "https://freshenv3.vercel.app/api/salons/get".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") else {
-            return
-        }
-        
-        let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-            guard let data = data, error == nil else {
-                return
-            }
-            
-            // Convert to JSON
-            do {
-                let apiReturnElement = try JSONDecoder().decode(ApiReturnElement.self, from: data) as ApiReturnElement
-                var salons = apiReturnElement.features as [SalonElement]
-                
-                // Sort api response based on input sortedBy
-                if sortedBy == Sorter.alphabetically {
-                    // sort by alpha
-                    salons.sort(by: { $0.name < $1.name })
-                } else if sortedBy == Sorter.type {
-                    // sort by type
-                    salons.sort(by: { $0.salon_type < $1.salon_type })
-                } else {
-                    // sort by price
-                    salons.sort(by: { $0.average_price < $1.average_price })
-                }
-                
-                
-                DispatchQueue.main.async {
-                    self?.salons = salons
-                }
-            } catch {
-                print(error)
-            }
-        }
-        
-        task.resume()
-        
-    }
-}
-
 struct URLImage: View {
     let urlString: String
     
@@ -84,9 +40,11 @@ struct URLImage: View {
 }
 
 struct ExploreView: View {
-    @StateObject var exploreViewModel = ExploreViewModel()
+    @StateObject var apiCaller = APICaller()
+    
     @State var sortBy: Sorter = Sorter.alphabetically
     @State var isShowingSortBySheet: Bool = false
+    
     var body: some View {
         NavigationStack {
             Picker("Sort by", selection: $sortBy) {
@@ -95,7 +53,7 @@ struct ExploreView: View {
                 Text("Sort By Price").tag(Sorter.price)
             }
             .pickerStyle(.segmented)
-            List(exploreViewModel.salons, id: \.self) { salon in
+            List(apiCaller.salons, id: \.self) { salon in
                 NavigationLink(destination: DetailView(salon: salon)) {
                     HStack {
                         URLImage(urlString: salon.image)
@@ -112,10 +70,10 @@ struct ExploreView: View {
             }
             .navigationTitle("Explore")
             .onAppear {
-                exploreViewModel.fetchSalons(sortedBy: sortBy)
+                apiCaller.fetchSalons()
             }
             .onChange(of: sortBy) { _ in
-                exploreViewModel.fetchSalons(sortedBy: sortBy)
+                apiCaller.changeSortBy(sortBy: sortBy)
             }
         }
     }

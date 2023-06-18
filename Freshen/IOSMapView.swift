@@ -17,9 +17,18 @@ class IOSMapViewController: ObservableObject {
 struct IOSMapView: View {
     @ObservedObject var iosMapViewController: IOSMapViewController
     
+    @StateObject var apiCaller: APICaller = APICaller()
+    
     var body: some View {
-        Map(coordinateRegion: $iosMapViewController.region)
-            .ignoresSafeArea(.container, edges: [.top])
+        ZStack {
+            Map(coordinateRegion: $iosMapViewController.region, annotationItems: apiCaller.salons, annotationContent: { salon in
+                MapMarker(coordinate: CLLocationCoordinate2D(latitude: salon.geometry.coordinates[1], longitude: salon.geometry.coordinates[0]), tint: .blue)
+            })
+                .ignoresSafeArea(.container, edges: [.top])
+        }
+        .onAppear {
+            apiCaller.fetchSalons()
+        }
     }
 }
 
