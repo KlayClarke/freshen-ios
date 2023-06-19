@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import MapKit
 
 class APICaller: ObservableObject {
     @Published var salons: [SalonElement] = []
@@ -26,6 +27,8 @@ class APICaller: ObservableObject {
                 let apiReturnElement = try JSONDecoder().decode(ApiReturnElement.self, from: data) as ApiReturnElement
                 var salons = apiReturnElement.features as [SalonElement]
                 
+                
+                // Sort by name
                 salons.sort(by: { $0.name < $1.name })
                 
                 DispatchQueue.main.async {

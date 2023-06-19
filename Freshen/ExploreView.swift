@@ -72,7 +72,7 @@ struct ExploreView: View {
             .onAppear {
                 apiCaller.fetchSalons()
             }
-            .onChange(of: sortBy) { _ in
+            .onChange(of: sortBy) {
                 apiCaller.changeSortBy(sortBy: sortBy)
             }
         }

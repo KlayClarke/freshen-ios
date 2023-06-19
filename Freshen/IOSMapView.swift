@@ -12,13 +12,13 @@ import MapKit
 
 struct IOSMapView: View {
     @StateObject var apiCaller: APICaller = APICaller()
-    
-    @State private var cameraPosition: MapCameraPosition = .region(.defaultRegion)
-    
     var body: some View {
-        Map(position: $cameraPosition) {
-            ForEach(apiCaller.salons) { salon in
-                Marker("\(salon.name)", coordinate: CLLocationCoordinate2D(latitude: salon.geometry.coordinates[1], longitude: salon.geometry.coordinates[0]))
+        ZStack {
+            Map()
+                .ignoresSafeArea()
+            VStack(spacing: 0) {
+                headerView(salons: apiCaller.salons)
+                Spacer()
             }
         }
         .onAppear {
@@ -33,16 +33,46 @@ struct IOSMapView_Previews: PreviewProvider {
     }
 }
 
-
-// Location Data
-extension CLLocationCoordinate2D {
-    static var defaultLocation: CLLocationCoordinate2D {
-        return .init(latitude: 39, longitude: -98)
+extension IOSMapView {
+    private func headerView(salons: [SalonElement]) -> some View {
+        VStack {
+            Text("Random Location Name")
+                .font(.title2)
+                .fontWeight(.black)
+                .foregroundStyle(.primary)
+                .frame(height: 55)
+                .frame(maxWidth: .infinity)
+                .overlay(alignment: .leading) {
+                    Image(systemName: "arrow.down")
+                        .font(.headline)
+                        .foregroundStyle(.primary)
+                        .padding()
+                }
+            salonsListView(salons: salons)
+        }
+        .background(.thickMaterial)
+        .clipShape(.rect(cornerRadius: 10))
+        .shadow(color: Color.black.opacity(0.3), radius: 20, x: 0, y: 15)
+        .padding()
     }
-}
-
-extension MKCoordinateRegion {
-    static var defaultRegion: MKCoordinateRegion {
-        return .init(center: .defaultLocation, latitudinalMeters: 10000000, longitudinalMeters: 10000000)
+    
+    private func salonsListView(salons: [SalonElement]) -> some View {
+        List {
+            ForEach(salons) { salon in
+                HStack {
+                    URLImage(urlString: salon.image)
+                        .scaledToFill()
+                        .frame(width: 45, height: 45)
+                        .clipShape(.rect(cornerRadius: 10))
+                    VStack(alignment: .leading) {
+                        Text(salon.name)
+                            .font(.headline)
+                        Text("\(salon.city), \(salon.state)")
+                            .font(.subheadline)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+        }
     }
 }
