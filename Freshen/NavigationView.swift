@@ -11,7 +11,7 @@ import SwiftUI
 struct NavigationView: View {
     var body: some View {
         TabView {
-            IOSMapView(iosMapViewController: IOSMapViewController(), apiCaller: APICaller())
+            IOSMapView()
                 .tabItem {
                     Image(systemName: "map")
                     Text("Map")
